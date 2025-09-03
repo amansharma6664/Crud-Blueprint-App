@@ -1,40 +1,153 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+🛒 CRUD Blueprint App (Next.js + MongoDB + TailwindCSS)
 
-## Getting Started
+This project is a CRUD application built with Next.js (Pages Router), MongoDB (Mongoose), and TailwindCSS.
+It implements the Blueprint Modular Architecture, where each feature (like products) contains all of its related files — APIs, services, models, pages, and components — inside one self-contained module.
 
-First, run the development server:
+⚙️ How to Run the App
 
-```bash
+Install dependencies
+
+npm install
+
+
+Create environment variables
+Inside the root folder, create a file named .env.local and add your MongoDB connection string:
+
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/crud-blueprint
+
+
+⚠️ Replace <username> and <password> with your actual MongoDB Atlas credentials.
+
+Run the development server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Open your browser and go to:
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+http://localhost:3000
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+You will see the Products List page. From here you can:
 
-## Learn More
+➕ Add a new product
 
-To learn more about Next.js, take a look at the following resources:
+✏️ Edit an existing product
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+❌ Delete a product
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🏗️ Blueprint Modular Architecture
 
-## Deploy on Vercel
+Blueprint modular architecture means each feature has its own folder with everything it needs.
+Instead of keeping all APIs, components, and models in one global folder, each module is self-contained.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Why this is useful:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+Each module is independent and can be easily maintained.
+
+New developers can quickly understand which files belong to which feature.
+
+The project is scalable — when you add new features (e.g., orders, users), you simply create a new module.
+
+📂 Folder Structure
+.
+├── modules/                           # Feature-based modules
+│   └── products/                      # "Products" module
+│       ├── api/                       # Product-specific API routes
+│       │   ├── create.ts              # POST - create product
+│       │   ├── delete.ts              # DELETE - delete product
+│       │   ├── list.ts                # GET - list all products
+│       │   ├── update.ts              # PUT - update product
+│       │   └── [id].ts                # GET - get single product by ID
+│       │
+│       ├── components/                # UI components for products
+│       │   ├── ProductForm.tsx        # Form used for create/edit
+│       │   └── ProductTable.tsx       # Table for listing products
+│       │
+│       ├── models/                    # Database schema
+│       │   └── productModel.ts        # Mongoose schema for Product
+│       │
+│       ├── pages/                     # Feature-specific pages
+│       │   ├── index.tsx              # Product list page
+│       │   ├── create.tsx             # Create product page
+│       │   └── [id].tsx               # Edit product page
+│       │
+│       └── services/                  # Business logic (DB operations)
+│           └── productService.ts      # CRUD functions (create, read, update, delete)
+│
+├── shared/                            # Shared code across modules
+│   ├── components/
+│   │   └── Layout.tsx                 # Common layout (header, footer, nav)
+│   │
+│   └── lib/
+│       ├── db.ts                      # MongoDB connection (cached)
+│       └── serialize.ts               # Utility to convert _id → id
+│
+├── pages/                             # Next.js routing system
+│   ├── products/
+│   │   ├── index.tsx                  # Re-export list page from module
+│   │   ├── create.tsx                 # Re-export create page from module
+│   │   └── [id].tsx                   # Re-export edit page from module
+│   │
+│   └── api/                           # Next.js API route entrypoints
+│       └── products/*                 # Connects to module APIs
+│
+├── .env.local                         # Environment variables (MongoDB URI)
+├── package.json
+└── README.md
+
+📖 Explanation of Each Folder
+/modules/products
+
+This is the Products module. It contains everything related to managing products:
+
+api/ → Backend API routes for CRUD operations.
+
+components/ → UI components used by product pages (form, table).
+
+models/ → The Mongoose schema that defines what a product looks like in the database.
+
+pages/ → Next.js pages for listing, creating, and editing products.
+
+services/ → Database queries and business logic (CRUD functions).
+
+/shared
+
+Contains reusable code used across the whole project:
+
+components/Layout.tsx → A layout wrapper (header, footer, navigation).
+
+lib/db.ts → Database connection logic with caching.
+
+lib/serialize.ts → Helper to convert MongoDB’s _id field into id for cleaner frontend responses.
+
+/pages
+
+Contains bridges that connect the Next.js routing system to the modular code.
+For example:
+
+/pages/products/index.tsx just re-exports modules/products/pages/index.tsx.
+This keeps your URLs clean (/products) while code stays inside the module.
+
+.env.local
+
+Holds environment variables such as MONGODB_URI.
+This keeps sensitive credentials out of the codebase.
+
+✅ Completed Requirements
+
+ Next.js project setup with TailwindCSS
+
+ MongoDB + Mongoose integration
+
+ CRUD APIs (create, read, update, delete)
+
+ Modular architecture (Blueprint) implemented
+
+ Pages with UI for list, create, edit, delete
+
+ Shared layout with header/footer
+
+ API testing done with Thunder Client
+
+ Price displayed in Rupees (₹)

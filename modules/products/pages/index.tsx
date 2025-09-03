@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import ProductTable from "@/modules/products/components/ProductTable";
+import ProductTable from "../components/ProductTable";
 import Layout from "@/shared/components/Layout";
 
-export default function ProductListPage() {
+export function ProductListPage() {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -11,7 +11,7 @@ export default function ProductListPage() {
     try {
       const res = await fetch("/api/products/list");
       const data = await res.json();
-      setProducts(data); // API returns an array
+      setProducts(data);
     } catch (err) {
       console.error("Error fetching products:", err);
     } finally {
@@ -27,7 +27,7 @@ export default function ProductListPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
       });
-      fetchProducts(); 
+      fetchProducts();
     } catch (err) {
       console.error("Error deleting product:", err);
     }
@@ -59,5 +59,4 @@ export default function ProductListPage() {
     </Layout>
   );
 }
-
-
+export { ProductListPage as default } from "@/modules/products/pages/index";
