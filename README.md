@@ -1,55 +1,51 @@
-🛒 CRUD Blueprint App (Next.js + MongoDB + TailwindCSS)
+# 🛒 CRUD Products App (Next.js + MongoDB + TailwindCSS)
 
-This project is a CRUD application built with Next.js (Pages Router), MongoDB (Mongoose), and TailwindCSS.
-It implements the Blueprint Modular Architecture, where each feature (like products) contains all of its related files — APIs, services, models, pages, and components — inside one self-contained module.
+This project is a CRUD application built with **Next.js (Pages Router)**, **MongoDB (Mongoose)**, and **TailwindCSS**.  
+It implements the **Blueprint Modular Architecture**, where each feature (like products) contains all of its related files — APIs, services, models, pages, and components — inside one self-contained module.
 
-⚙️ How to Run the App
+---
 
-Install dependencies
+## ⚙️ How to Run the App
 
+### 1. Install dependencies
+```bash
 npm install
 
+2. Create environment variables
 
-Create environment variables
 Inside the root folder, create a file named .env.local and add your MongoDB connection string:
 
 MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/crud-blueprint
 
-
 ⚠️ Replace <username> and <password> with your actual MongoDB Atlas credentials.
 
-Run the development server
+3. Run the development server
 
 npm run dev
 
+4. Open your browser
 
-Open your browser and go to:
-
-http://localhost:3000
-
+Go to: http://localhost:3000
 
 You will see the Products List page. From here you can:
 
 ➕ Add a new product
-
 ✏️ Edit an existing product
-
 ❌ Delete a product
 
 🏗️ Blueprint Modular Architecture
 
-Blueprint modular architecture means each feature has its own folder with everything it needs.
+Blueprint Modular Architecture means each feature has its own folder with everything it needs.
 Instead of keeping all APIs, components, and models in one global folder, each module is self-contained.
 
 Why this is useful:
 
-Each module is independent and can be easily maintained.
-
-New developers can quickly understand which files belong to which feature.
-
-The project is scalable — when you add new features (e.g., orders, users), you simply create a new module.
+- Each module is independent and easy to maintain.
+- New developers can quickly understand which files belong to which feature.
+- The project is scalable — when you add new features (e.g., orders, users), you simply create a new module.
 
 📂 Folder Structure
+
 .
 ├── modules/                           # Feature-based modules
 │   └── products/                      # "Products" module
@@ -96,30 +92,25 @@ The project is scalable — when you add new features (e.g., orders, users), you
 ├── package.json
 └── README.md
 
+
 📖 Explanation of Each Folder
 /modules/products
 
 This is the Products module. It contains everything related to managing products:
 
-api/ → Backend API routes for CRUD operations.
-
-components/ → UI components used by product pages (form, table).
-
-models/ → The Mongoose schema that defines what a product looks like in the database.
-
-pages/ → Next.js pages for listing, creating, and editing products.
-
-services/ → Database queries and business logic (CRUD functions).
+- api/ → Backend API routes for CRUD operations.
+- components/ → UI components used by product pages (form, table).
+- models/ → The Mongoose schema that defines what a product looks like in the database.
+- pages/ → Next.js pages for listing, creating, and editing products.
+- services/ → Database queries and business logic (CRUD functions).
 
 /shared
 
 Contains reusable code used across the whole project:
 
-components/Layout.tsx → A layout wrapper (header, footer, navigation).
-
-lib/db.ts → Database connection logic with caching.
-
-lib/serialize.ts → Helper to convert MongoDB’s _id field into id for cleaner frontend responses.
+- components/Layout.tsx → A layout wrapper (header, footer, navigation).
+- lib/db.ts → Database connection logic with caching.
+- lib/serialize.ts → Helper to convert MongoDB’s _id field into id for cleaner frontend responses.
 
 /pages
 
@@ -134,20 +125,12 @@ This keeps your URLs clean (/products) while code stays inside the module.
 Holds environment variables such as MONGODB_URI.
 This keeps sensitive credentials out of the codebase.
 
-✅ Completed Requirements
-
- Next.js project setup with TailwindCSS
-
- MongoDB + Mongoose integration
-
- CRUD APIs (create, read, update, delete)
-
- Modular architecture (Blueprint) implemented
-
- Pages with UI for list, create, edit, delete
-
- Shared layout with header/footer
-
- API testing done with Thunder Client
-
- Price displayed in Rupees (₹)
+Completed Requirements
+✅ Next.js project setup with TailwindCSS
+✅ MongoDB + Mongoose integration
+✅ CRUD APIs (create, read, update, delete)
+✅ Modular architecture (Blueprint) implemented
+✅ Pages with UI for list, create, edit, delete
+✅ Shared layout with header/footer
+✅ API testing done with Thunder Client
+✅ Price displayed in Rupees (₹)
