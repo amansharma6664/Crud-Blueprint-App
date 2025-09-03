@@ -12,7 +12,6 @@ It implements the **Blueprint Modular Architecture**, where each feature (like p
 npm install
 
 2. Create environment variables
-
 Inside the root folder, create a file named .env.local and add your MongoDB connection string:
 
 MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/crud-blueprint
@@ -20,11 +19,9 @@ MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/crud-bluepr
 ⚠️ Replace <username> and <password> with your actual MongoDB Atlas credentials.
 
 3. Run the development server
-
 npm run dev
 
 4. Open your browser
-
 Go to: http://localhost:3000
 
 You will see the Products List page. From here you can:
@@ -41,7 +38,6 @@ Instead of keeping all APIs, components, and models in one global folder, each m
 Why this is useful:
 
 - Each module is independent and easy to maintain.
-- New developers can quickly understand which files belong to which feature.
 - The project is scalable — when you add new features (e.g., orders, users), you simply create a new module.
 
 📂 Folder Structure
@@ -76,8 +72,7 @@ Why this is useful:
 │   │   └── Layout.tsx                 # Common layout (header, footer, nav)
 │   │
 │   └── lib/
-│       ├── db.ts                      # MongoDB connection (cached)
-│       └── serialize.ts               # Utility to convert _id → id
+│       └── db.ts                      # MongoDB connection (cached)
 │
 ├── pages/                             # Next.js routing system
 │   ├── products/
@@ -92,12 +87,11 @@ Why this is useful:
 ├── package.json
 └── README.md
 
-
 📖 Explanation of Each Folder
+
 /modules/products
 
 This is the Products module. It contains everything related to managing products:
-
 - api/ → Backend API routes for CRUD operations.
 - components/ → UI components used by product pages (form, table).
 - models/ → The Mongoose schema that defines what a product looks like in the database.
@@ -107,7 +101,6 @@ This is the Products module. It contains everything related to managing products
 /shared
 
 Contains reusable code used across the whole project:
-
 - components/Layout.tsx → A layout wrapper (header, footer, navigation).
 - lib/db.ts → Database connection logic with caching.
 - lib/serialize.ts → Helper to convert MongoDB’s _id field into id for cleaner frontend responses.
@@ -116,7 +109,6 @@ Contains reusable code used across the whole project:
 
 Contains bridges that connect the Next.js routing system to the modular code.
 For example:
-
 /pages/products/index.tsx just re-exports modules/products/pages/index.tsx.
 This keeps your URLs clean (/products) while code stays inside the module.
 
